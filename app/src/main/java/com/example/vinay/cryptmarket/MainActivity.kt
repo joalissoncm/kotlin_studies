@@ -18,6 +18,7 @@ import retrofit2.Callback
 
 
 
+class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: CryptoAdapter
     val cryptoList = mutableListOf<CryptoResult>()
@@ -53,7 +54,6 @@ import retrofit2.Callback
         binding.swipeLayout.setOnRefreshListener(this)
     }
 
-
     fun callApi() {
         val apiService = ApiService.create()
         val call = apiService.getCrypto()
@@ -75,20 +75,19 @@ import retrofit2.Callback
             }
 
             override fun onFailure(call: Call<MutableList<CryptoResult>>, t: Throwable) {
-                progress.visibility = View.GONE
-                Log.e("error", t.toString());
-                    binding.swipeLayout.isRefreshing = false
-                }
+                binding.progress.visibility = View.GONE
+                Log.e("error", t.toString())
+                binding.swipeLayout.isRefreshing = false
             }
+        })
+    }
 
     private fun doTheAutoRefresh() {
-        handler.postDelayed(Runnable {
-// auto refresh
-            progress.visibility = View.VISIBLE
+        handler.postDelayed({
+            // auto refresh
+            binding.progress.visibility = View.VISIBLE
             callApi()
             doTheAutoRefresh()
         }, 60000)
     }
-
-
 }
