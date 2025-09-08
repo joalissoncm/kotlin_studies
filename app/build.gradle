@@ -18,13 +18,11 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
     def mainSrc = "$projectDir/src/main/java"
     sourceDirectories.setFrom(files([mainSrc]))
     classDirectories.setFrom(files([debugTree]))
-    executionData.setFrom(fileTree(dir: buildDir, includes: [
+    def execFiles = fileTree(dir: buildDir, includes: [
         'jacoco/testDebugUnitTest.exec',
         'outputs/unit_test_code_coverage/debugUnitTest/testDebugUnitTest.exec'
-    ]))
-    doFirst {
-        executionData.setFrom(executionData.findAll { it.exists() })
-    }
+    ]).files.findAll { it.exists() }
+    executionData.setFrom(files(execFiles))
 }
 repositories {
     google()
