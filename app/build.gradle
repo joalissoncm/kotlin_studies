@@ -1,18 +1,17 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
+final ANKO_VERSION = '0.8.3'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
     defaultConfig {
-        applicationId "com.example.vinay.cryptmarket"
-        minSdkVersion 16
-        targetSdkVersion 30
+        applicationId "in.myinnos.kotlinexample"
+        minSdkVersion 15
+        targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        versionName "0.1"
     }
     buildTypes {
         release {
@@ -20,27 +19,26 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    viewBinding {
-        enabled = true
+    sourceSets {
+        main.java.srcDirs += 'src/menu_main/kotlin'
+        main.java.srcDirs += 'src/main/kotlin'
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'androidx.recyclerview:recyclerview:1.2.1'
-    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    // ...existing code...
-    implementation 'com.google.code.gson:gson:2.8.2'
-    implementation 'com.squareup.retrofit2:retrofit:2.0.2'
-    implementation 'com.squareup.retrofit2:converter-gson:2.0.2'
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'com.android.support:customtabs:25.1.0'
 
+    // Initializing kotlin library
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    // Initializing anko library
+    compile "org.jetbrains.anko:anko-sdk15:${ANKO_VERSION}"
 
+    // you can use this libraries to use anko UI
+    //compile "org.jetbrains.anko:anko-appcompat-v7:${ANKO_VERSION}"
+    //compile "org.jetbrains.anko:anko-recyclerview-v7:${ANKO_VERSION}"
+}
+repositories {
+    mavenCentral()
 }
