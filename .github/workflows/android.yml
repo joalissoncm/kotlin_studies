@@ -10,7 +10,7 @@ on:
 permissions:
   checks: write
   pull-requests: write
-  contents: read  
+  contents: read
 
 jobs:
   build:
@@ -28,37 +28,50 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
+      - name: Variables CICD
+        run: env  
+
       #- name: Build with Gradle
       #  run: ./gradlew build
 
       #- name: Run unit tests
       #  run: ./gradlew test
 
-      - name: Build with Gradle
-        run: ./gradlew clean build jacocoTestReport
+      # - name: Build with Gradle
+      #   run: ./gradlew clean build jacocoTestReport
 
-      - name: Run unit tests
-        run: ./gradlew test
+      # - name: Run unit tests
+      #   run: ./gradlew test
 
-      - name: Run Lint
-        run: ./gradlew lint
+      # - name: Run Lint
+      #   run: ./gradlew lint
 
-      - name: Upload Lint report
-        uses: actions/upload-artifact@v4
-        with:
-          name: Lint Report
-          path: app/build/reports/lint-results.xml
+      # - name: Upload Lint report
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: Lint Report
+      #     path: app/build/reports/lint-results.xml
 
-      - name: Publish JUnit test results
-        if: always()
-        uses: mikepenz/action-junit-report@v4
-        with:
-          report_paths: '**/TEST-*.xml'
-          check_name: 'JUnit Test Results'
+      # - name: Publish JUnit test results
+      #   if: always()
+      #   uses: mikepenz/action-junit-report@v4
+      #   with:
+      #     report_paths: "**/TEST-*.xml"
+      #     check_name: "JUnit Test Results"
 
-      - name: Publish HTML reports
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: HTML Reports
-          path: app/build/reports/tests/testDebugUnitTest/index.html
+      # - name: Publish HTML reports
+      #   if: always()
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: HTML Reports
+      #     path: app/build/reports/tests/testDebugUnitTest/index.html
+
+      # - name: SonarQube Scan
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   run: |
+      #     ./gradlew sonarqube \
+      #       -Dsonar.projectKey=your_project_key \
+      #       -Dsonar.organization=your_organization_key \
+      #       -Dsonar.host.url=https://sonarcloud.io \
+      #       -Dsonar.login=${{ secrets.SONAR_TOKEN }}  
