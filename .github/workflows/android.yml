@@ -45,7 +45,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Lint Report
-          path: app/build/reports/lint-results.xml
+          path: app/build/reports/
 
       - name: Publish JUnit test results
         if: always()
@@ -70,8 +70,8 @@ jobs:
       #       -Dsonar.organization=your_organization_key \
       #       -Dsonar.host.url=https://sonarcloud.io \
       #       -Dsonar.login=${{ secrets.SONAR_TOKEN }}  
-            # Create Bundle AAB Release
       
+      # Create Bundle AAB Release 
       # Noted for main module build [main_project_module]:bundleRelease
       - name: Build app bundle release (AAB) - ${{ env.main_project_module }} module
         run: ./gradlew ${{ env.main_project_module }}:bundleRelease
