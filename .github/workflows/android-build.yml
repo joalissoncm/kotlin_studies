@@ -45,6 +45,10 @@ jobs:
       - name: Build app bundle release (AAB) - ${{ env.main_project_module }} module
         run: ./gradlew ${{ env.main_project_module }}:bundleRelease
 
+      # Create AAR (Library) Release
+      - name: Build Android Archive (AAR) Release - ${{ env.main_project_module }} module
+        run: ./gradlew ${{ env.main_project_module }}:assembleRelease
+
       # Upload Artifact Build
       # Noted For Output [main_project_module]/build/outputs/apk/debug/
       - name: Upload APK Debug - ${{ env.repository_name }}
@@ -66,3 +70,10 @@ jobs:
         with:
           name: ${{ env.repository_name }} - App bundle(s) AAB release generated
           path: ${{ env.main_project_module }}/build/outputs/bundle/release/
+      
+      # Upload AAR Release
+      - name: Upload AAR Release - ${{ env.repository_name }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.repository_name }} - Android Archive(s) AAR release generated
+          path: ${{ env.main_project_module }}/build/outputs/aar/
