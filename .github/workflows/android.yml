@@ -16,7 +16,7 @@ env:
   # The name of the main module repository
   main_project_module: app  
   # The name of the library module to generate AAR
-  library_module: library 
+  #library_module: library 
 
 jobs:
   build:
@@ -79,8 +79,8 @@ jobs:
         run: ./gradlew ${{ env.main_project_module }}:bundleRelease
 
       # Build AAR Release (Library Module)
-      - name: Build Android Archive (AAR) Release - ${{ env.library_module }} module
-        run: ./gradlew ${{ env.library_module }}:assembleRelease
+      - name: Build Android Archive (AAR) Release - ${{ env.main_project_module }} module
+        run: ./gradlew ${{ env.main_project_module }}:assembleRelease
 
       # Upload Artifact Build
 
@@ -107,9 +107,9 @@ jobs:
 
       # Upload AAR Release
 
-      - name: Upload AAR Release - ${{ env.library_module }}
+      - name: Upload AAR Release - ${{ env.main_project_module }}
         uses: actions/upload-artifact@v4
 
         with:
           name: Android Archive(s) AAR release generated
-          path: ${{ env.library_module }}/build/outputs/aar/
+          path: ${{ env.main_project_module }}/build/outputs/aar/
