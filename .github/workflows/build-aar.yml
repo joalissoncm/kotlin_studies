@@ -1,0 +1,29 @@
+name: Build AAR
+
+on:
+  push:
+    branches:
+      - main # Or your main development branch
+  pull_request:
+    branches:
+      - main # Or your main development branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # Or a suitable runner environment
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17' # Or the JDK version required by your project
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: Build AAR
+      run: ./gradlew assembleRelease # Or the specific Gradle task to build your AAR
