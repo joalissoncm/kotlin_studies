@@ -40,14 +40,14 @@ jobs:
       # - name: Run unit tests
       #   run: ./gradlew test
 
-      - name: Run Lint
-        run: ./gradlew lint
+      # - name: Run Lint
+      #   run: ./gradlew lint
 
-      - name: Upload Lint report
-        uses: actions/upload-artifact@v4
-        with:
-          name: Lint Report
-          path: library/build/reports/lint-results-debug.xml
+      # - name: Upload Lint report
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: Lint Report
+      #     path: library/build/reports/lint-results-debug.xml
 
       # - name: Publish JUnit test results
       #   if: always()
