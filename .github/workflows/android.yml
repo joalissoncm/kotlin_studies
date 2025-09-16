@@ -16,7 +16,7 @@ env:
   # The name of the main module repository
   main_project_module: app  
   # The name of the library module to generate AAR
-  library_module: app/src
+  library_module: app
 
 jobs:
   build:
@@ -112,4 +112,4 @@ jobs:
 
         with:
           name: Android Archive(s) AAR release generated
-          path: ${{ env.library_module }}/build/outputs/aar/
+          path: ${{ env.library_module }}kotlin_studies/build/outputs/aar/
