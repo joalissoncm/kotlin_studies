@@ -30,12 +30,13 @@ jobs:
       run: chmod +x gradlew
 
     - name: Build AAR
-      run: ./gradlew ${{ env.library_module }}:assembleRelease # Or the specific Gradle task to build your AAR
+      run: ./gradlew ${{ env.main_project_module }}:assembleRelease # Or the specific Gradle task to build your AAR
 #Upload AAR Release
 
-    - name: Upload AAR Release - ${{ env.library_module }}
+    - name: Upload AAR Release - ${{ env.main_project_module }}
       uses: actions/upload-artifact@v4
 
       with:
         name: Android Archive(s) AAR release generated
-        path: ${{ env.library_module }}/build/outputs/aar/
+        path: ${{ env.main_project_module }}/build/outputs/aar/
+
