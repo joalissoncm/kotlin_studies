@@ -1,39 +1,12 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
+    ext.kotlin_version = '1.9.24'
     repositories {
+        google()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0'
+        classpath 'com.android.tools.build:gradle:8.4.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
-}
-
-plugins {
-    id 'com.android.library'
-    id 'org.jetbrains.kotlin.android'
-}
-
-android {
-    namespace "com.seuprojeto.library"
-    compileSdk 34
-
-    defaultConfig {
-        minSdk 24
-        targetSdk 34
-
-        versionCode 1
-        versionName "1.0"
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile(
-                'proguard-android-optimize.txt'
-            ), 'proguard-rules.pro'
-        }
-    }
-}
-
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:2.2.20"
 }
