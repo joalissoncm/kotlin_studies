@@ -47,7 +47,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Lint Report
-          path: app/build/reports/lint-results-debug.xml
+          path: library/build/reports/lint-results-debug.xml
 
       - name: Publish JUnit test results
         if: always()
@@ -61,7 +61,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: HTML Reports
-          path: app/build/reports/tests/testDebugUnitTest/index.html
+          path: library/build/reports/tests/testDebugUnitTest/index.html
 
       # - name: SonarQube Scan
       #   env:
