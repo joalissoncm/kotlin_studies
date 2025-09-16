@@ -16,7 +16,7 @@ env:
   # The name of the main module repository
   main_project_module: app  
   # The name of the library module to generate AAR
-  library_module: app
+  library_module: library
 
 jobs:
   build:
@@ -75,8 +75,8 @@ jobs:
       
       # Create Bundle AAB Release 
       # Noted for main module build [main_project_module]:bundleRelease
-      - name: Build app bundle release (AAB) - ${{ env.main_project_module }} module
-        run: ./gradlew ${{ env.main_project_module }}:bundleRelease
+      # - name: Build app bundle release (AAB) - ${{ env.main_project_module }} module
+      #   run: ./gradlew ${{ env.main_project_module }}:bundleRelease
 
       # Build AAR Release (Library Module)
       - name: Build Android Archive (AAR) Release - ${{ env.library_module }} module
@@ -89,26 +89,26 @@ jobs:
 
       # Upload Artifact Build
 
-      - name: Upload APK Debug - ${{ env.main_project_module }}
-        uses: actions/upload-artifact@v4
+      # - name: Upload APK Debug - ${{ env.main_project_module }}
+      #   uses: actions/upload-artifact@v4
 
-        with:
-          name: APK(s) debug generated
-          path: ${{ env.main_project_module }}/build/outputs/apk/debug/
+      #   with:
+      #     name: APK(s) debug generated
+      #     path: ${{ env.main_project_module }}/build/outputs/apk/debug/
 
-      - name: Upload APK Release - ${{ env.main_project_module }}
-        uses: actions/upload-artifact@v4
+      # - name: Upload APK Release - ${{ env.main_project_module }}
+      #   uses: actions/upload-artifact@v4
 
-        with:
-          name: APK(s) release generated
-          path: ${{ env.main_project_module }}/build/outputs/apk/release/
+      #   with:
+      #     name: APK(s) release generated
+      #     path: ${{ env.main_project_module }}/build/outputs/apk/release/
 
-      - name: Upload AAB (App Bundle) Release - ${{ env.main_project_module }}
-        uses: actions/upload-artifact@v4
+      # - name: Upload AAB (App Bundle) Release - ${{ env.main_project_module }}
+      #   uses: actions/upload-artifact@v4
 
-        with:
-          name: App bundle(s) AAB release generated
-          path: ${{ env.main_project_module }}/build/outputs/bundle/release/
+      #   with:
+      #     name: App bundle(s) AAB release generated
+      #     path: ${{ env.main_project_module }}/build/outputs/bundle/release/
 
       # Upload AAR Release
 
