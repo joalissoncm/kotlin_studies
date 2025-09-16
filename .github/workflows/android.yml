@@ -117,4 +117,4 @@ jobs:
 
         with:
           name: Android Archive(s) AAR release generated
-          path: ${{ env.library_module }}/kotlin_studies/build/outputs/aar/
+          path: ${{ env.library_module }}/build/outputs/aar/
