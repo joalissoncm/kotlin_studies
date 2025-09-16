@@ -80,7 +80,12 @@ jobs:
 
       # Build AAR Release (Library Module)
       - name: Build Android Archive (AAR) Release - ${{ env.library_module }} module
-        run: ./gradlew ${{ env.library_module }}:assembleRelease
+        run: |
+          echo ">>> Iniciando build do módulo: ${{ env.library_module }}"
+          ./gradlew ${{ env.library_module }}:assembleRelease
+          echo ">>> Build finalizado para o módulo: ${{ env.library_module }}"
+          echo ">>> Listando arquivos no diretório de saída:"
+          ls -lh ${{ env.library_module }}/build/outputs/aar/
 
       # Upload Artifact Build
 
