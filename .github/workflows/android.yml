@@ -14,7 +14,7 @@ permissions:
 
 env:
   # The name of the main module repository
-  main_project_module: app/src  
+  main_project_module: app  
   # The name of the library module to generate AAR
   #library_module: library 
 
