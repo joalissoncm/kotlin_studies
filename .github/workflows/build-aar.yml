@@ -39,4 +39,3 @@ jobs:
       with:
         name: Android Archive(s) AAR release generated
         path: ${{ env.main_project_module }}/build/outputs/aar/
-
