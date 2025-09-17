@@ -16,7 +16,7 @@ env:
   # The name of the main module repository
   main_project_module: app  
   # The name of the library module to generate AAR
-  library_module: app
+  library_module: library
 
 jobs:
   build:
@@ -82,7 +82,7 @@ jobs:
       - name: Build Android Archive (AAR) Release - ${{ env.library_module }} module
         run: |
           echo ">>> Iniciando build do módulo: ${{ env.library_module }}"
-          ./gradlew ${{ env.library_module }}:assembleRelease
+          ./gradlew library:assembleRelease
           echo ">>> Build finalizado para o módulo: ${{ env.library_module }}"
           echo ">>> Listando arquivos no diretório de saída:"
           ls -lh ${{ env.library_module }}/build/outputs/aar/
