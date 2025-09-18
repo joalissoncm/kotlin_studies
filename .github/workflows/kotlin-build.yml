@@ -1,4 +1,4 @@
-name: task - validate commit on master
+name: kotlin build
 on:
   push:
     branches: [ main ]
@@ -23,7 +23,7 @@ jobs:
           
       - name: Generate AAR and APK files
         if: always()
-        run: ./gradlew assembleDebug
+        run: ./gradlew dog_network:assembleRelease
 
       - name: Upload AAR files
         if: always()
