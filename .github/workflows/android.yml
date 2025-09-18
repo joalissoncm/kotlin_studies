@@ -13,18 +13,16 @@ permissions:
   contents: read
 
 env:
-  # The name of the main module repository
-  main_project_module: app  
-  # The name of the library module to generate AAR
+  main_project_module: app
   library_module: library
 
 jobs:
-  build:
+  build-apk:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
-      - name: set up JDK 17
+
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: "17"
@@ -34,87 +32,35 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      # - name: Build with Gradle
-      #   run: ./gradlew clean build jacocoTestReport
+      - name: Build APK Release - ${{ env.main_project_module }}
+        run: ./gradlew ${{ env.main_project_module }}:assembleRelease
 
-      # - name: Run unit tests
-      #   run: ./gradlew test
-
-      # - name: Run Lint
-      #   run: ./gradlew lint
-
-      # - name: Upload Lint report
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: Lint Report
-      #     path: library/build/reports/lint-results-debug.xml
-
-      # - name: Publish JUnit test results
-      #   if: always()
-      #   uses: mikepenz/action-junit-report@v4
-      #   with:
-      #     report_paths: "**/TEST-*.xml"
-      #     check_name: "JUnit Test Results"
-
-      # - name: Publish HTML reports
-      #   if: always()
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: HTML Reports
-      #     path: library/build/reports/tests/testDebugUnitTest/index.html
-
-      # - name: SonarQube Scan
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   run: |
-      #     ./gradlew sonarqube \
-      #       -Dsonar.projectKey=your_project_key \
-      #       -Dsonar.organization=your_organization_key \
-      #       -Dsonar.host.url=https://sonarcloud.io \
-      #       -Dsonar.login=${{ secrets.SONAR_TOKEN }}  
-      
-      # Create Bundle AAB Release 
-      # Noted for main module build [main_project_module]:bundleRelease
-      # - name: Build app bundle release (AAB) - ${{ env.main_project_module }} module
-      #   run: ./gradlew ${{ env.main_project_module }}:bundleRelease
-
-      # Build AAR Release (Library Module)
-      - name: Build Android Archive (AAR) Release - ${{ env.library_module }} module
-        run: |
-          echo ">>> Iniciando build do módulo: ${{ env.library_module }}"
-          ./gradlew library:assembleRelease
-          echo ">>> Build finalizado para o módulo: ${{ env.library_module }}"
-          echo ">>> Listando arquivos no diretório de saída:"
-          ls -lh ${{ env.library_module }}/build/outputs/aar/
-
-      # Upload Artifact Build
-
-      # - name: Upload APK Debug - ${{ env.main_project_module }}
-      #   uses: actions/upload-artifact@v4
-
-      #   with:
-      #     name: APK(s) debug generated
-      #     path: ${{ env.main_project_module }}/build/outputs/apk/debug/
-
-      # - name: Upload APK Release - ${{ env.main_project_module }}
-      #   uses: actions/upload-artifact@v4
-
-      #   with:
-      #     name: APK(s) release generated
-      #     path: ${{ env.main_project_module }}/build/outputs/apk/release/
-
-      # - name: Upload AAB (App Bundle) Release - ${{ env.main_project_module }}
-      #   uses: actions/upload-artifact@v4
-
-      #   with:
-      #     name: App bundle(s) AAB release generated
-      #     path: ${{ env.main_project_module }}/build/outputs/bundle/release/
-
-      # Upload AAR Release
-
-      - name: Upload AAR Release - ${{ env.library_module }}
+      - name: Upload APK Release
         uses: actions/upload-artifact@v4
-
         with:
-          name: Android Archive(s) AAR release generated
-          path: ${{ env.library_module }}/build/outputs/aar/
+          name: APK Release
+          path: ${{ env.main_project_module }}/build/outputs/apk/release/*.apk
+
+  build-aar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: "17"
+          distribution: "temurin"
+          cache: gradle
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build AAR Release - ${{ env.library_module }}
+        run: ./gradlew ${{ env.library_module }}:assembleRelease
+
+      - name: Upload AAR Release
+        uses: actions/upload-artifact@v4
+        with:
+          name: AAR Release
+          path: ${{ env.library_module }}/build/outputs/aar/*.aar
