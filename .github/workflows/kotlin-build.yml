@@ -23,7 +23,7 @@ jobs:
           
       - name: Generate AAR and APK files
         if: always()
-        run: ./gradlew dog_network:assembleRelease
+        run: ./gradlew build
 
       - name: Upload AAR files
         if: always()
