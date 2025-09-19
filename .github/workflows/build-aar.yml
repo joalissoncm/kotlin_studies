@@ -44,7 +44,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.repository_name }} - APK(s) debug
-          path: ${{ env.repository_module }}/build/outputs/apk/release
+          path: ${{ env.main_project_module }}/build/outputs/apk/release
 
       - name: Upload APK Release - ${{ env.repository_name }}
         uses: actions/upload-artifact@v4
