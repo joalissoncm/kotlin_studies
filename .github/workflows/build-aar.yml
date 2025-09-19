@@ -58,6 +58,7 @@ jobs:
       with:
         name: ${{ env.repository_name }} - App bundle AAB release
         path: ${{ env.main_project_module }}/build/outputs/bundle/release/
+  
   convert-apk-to-aar:
     runs-on: ubuntu-latest
     needs: build
