@@ -30,11 +30,11 @@ jobs:
 
       # Rodar o build do módulo de library
       - name: Build AAR (nativelibtest)
-        run: ./gradlew :nativelibtest:clean :nativelibtest:assembleRelease
+        run: ./gradlew :kotlin_studies:clean :kotlin_studies:assembleRelease
 
       # Upload do artefato AAR gerado
       - name: Upload AAR artifact
         uses: actions/upload-artifact@v4
         with:
-          name: nativelibtest-aar
-          path: nativelibtest/build/outputs/aar/*.aar
+          name: kotlin_studies-aar
+          path: kotlin_studies/build/outputs/aar/*.aar
